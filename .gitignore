@@ -64,6 +64,9 @@ typings/
 
 
 client/node_modules/
+client/package-lock.json
+client/dist
+client/.idea
 server/node_modules
 server/dist
 server/.idea
