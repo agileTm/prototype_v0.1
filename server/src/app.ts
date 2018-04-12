@@ -9,6 +9,8 @@ import * as bodyParser from 'body-parser';
 import { LoggerModule } from './module/logger.module';
 import { ErrorModule } from './module/error.module';
 import { AppRouter } from './app.router';
+import { Config } from './config/config';
+import { RethinkDB } from './module/rethinkdb.module';
 
 
 export default class App {
@@ -63,8 +65,8 @@ export default class App {
     }
 
     private async _connectDB() {
-        /*const rethinkdb = new RethinkDB(Config.DB, Config.HOST, Config.DB_TABLE);
+        const rethinkdb = new RethinkDB(Config.DB, Config.HOST, Config.DB_TABLE);
         await rethinkdb.connect();
-        this._r = rethinkdb.r;*/
+        this._r = rethinkdb.r;
     }
 }
