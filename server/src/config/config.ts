@@ -6,7 +6,9 @@ const config: any = {
     TABLE_LOG: 'log',
     TABLE_MEMBER: 'member',
 
-    PASSWORD_KEY: 'prototype_v0.1'
+    PASSWORD_KEY: 'prototype_v0.1',
+
+    JWT_KEY: 'secret'
 };
 
 config.DB_TABLE = [
