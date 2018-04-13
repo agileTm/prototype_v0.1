@@ -6,9 +6,9 @@ import { Config } from '../../config/config';
 import { Crypto } from '../../module/crypto.module';
 import { ErrorModule } from '../../module/error.module';
 import { signInSchema } from './sign-in.json-schema';
-import { signJWT } from '../../module/jwt.module';
+import { checkJWT, signJWT } from '../../module/jwt.module';
 
-export class SignUpRouter {
+export class SignInRouter {
     router: Router;
     private _r: any;
 
@@ -34,18 +34,22 @@ export class SignUpRouter {
             const id = params.id;
             const password = Crypto.encrypt(params.password, Config.PASSWORD_KEY);
 
-            const memberInfo = await r.table(Config.TABLE_MEMBER).filter({id, password}).run()[0];
+            const memberInfo = await r.table(Config.TABLE_MEMBER).get(id);
 
-            if (!memberInfo) {
+            if (memberInfo.password !== password) {
                 ErrorModule.errThrow(401, 'wrong id/password');
             }
 
             res.send(signJWT({id}));
         }));
+
+        this.router.post('/check', checkJWT, wrap(async (req: any, res: any) => {
+            res.send(req.user);
+        }));
     }
 
     public static create(app: Application) {
-        const router = new SignUpRouter();
-        app.use('/api/signup', router.router);
+        const router = new SignInRouter();
+        app.use('/api/signin', router.router);
     }
 }

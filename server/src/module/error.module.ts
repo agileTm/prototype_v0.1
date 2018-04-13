@@ -37,4 +37,9 @@ export namespace ErrorModule {
         throw err;
     };
 
+    export const getError = (status: number, message: string) => {
+        const err: any = new Error(message);
+        err.status = status;
+        return err;
+    };
 }
