@@ -18,6 +18,8 @@
     "@vue/cli-plugin-babel": "^3.0.0-beta.6",
     "@vue/cli-plugin-typescript": "^3.0.0-beta.6",
     "@vue/cli-service": "^3.0.0-beta.6",
+    "axios": "^0.18.0",
+    "es6-promise": "^4.2.4",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "vue-template-compiler": "^2.5.13"

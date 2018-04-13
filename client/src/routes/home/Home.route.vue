@@ -1,6 +1,7 @@
 <template>
     <div class="home">
-        Home
+        <h1>Home</h1>
+        <router-link to="/signup">회원가입</router-link>
     </div>
 </template>
 
