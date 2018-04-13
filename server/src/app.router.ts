@@ -3,6 +3,7 @@
  */
 import { Application } from 'express';
 import {ExampleRouter} from './router/example/example.router';
+import { SignUpRouter } from './router/sign-up/sign-up.router';
 
 export class AppRouter {
     private _app: Application;
@@ -16,5 +17,6 @@ export class AppRouter {
     private _router() {
         const app = this._app;
         ExampleRouter.create(app);
+        SignUpRouter.create(app);
     }
 }

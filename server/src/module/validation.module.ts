@@ -7,7 +7,7 @@ export const validation = (jsonSchema: object) => (req: any, res: any, next: any
     if (!ajv.validate(jsonSchema, param)) {
         const err: any = new Error(ajv.errorsText());
         err.code = 'validation';
-        err.status = 422;
+        err.status = 412;
         next(err);
     } else {
         next();
