@@ -40,7 +40,12 @@ export class SignInRouter {
                 ErrorModule.errThrow(401, 'wrong id/password');
             }
 
-            res.send(signJWT({id}));
+            const result = {
+                token: signJWT({id}),
+                id
+            };
+
+            res.send(result);
         }));
 
         this.router.post('/check', checkJWT, wrap(async (req: any, res: any) => {

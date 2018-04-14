@@ -31,7 +31,8 @@ describe('sign in', () => {
             .send(params)
             .then(res => {
                 expect(res.status).to.be.equal(200);
-                jwt = res.text;
+                expect(res.body.id).to.be.eq(params.id);
+                jwt = res.body.token;
                 done();
             }).catch(e => done(e));
     });

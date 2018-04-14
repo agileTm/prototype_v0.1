@@ -8,13 +8,13 @@ export const setJWT = (jwt: string) => {
 };
 
 export const get = async (api: string, config?: AxiosRequestConfig) =>
-    await Axios.get(url + api, config);
+    (await Axios.get(url + api, config)).data;
 
 export const post = async (api: string, data?: any, config?: AxiosRequestConfig) =>
-    await Axios.post(url + api, data, config);
+    (await Axios.post(url + api, data, config)).data;
 
 export const put = async (api: string, data?: any, config?: AxiosRequestConfig) =>
-    await Axios.put(url + api, data, config);
+    (await Axios.put(url + api, data, config)).data;
 
 export const remove = async (api: string, config?: AxiosRequestConfig) =>
-    await Axios.delete(url + api, config);
+    (await Axios.delete(url + api, config)).data;

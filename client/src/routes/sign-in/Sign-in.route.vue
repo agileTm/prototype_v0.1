@@ -2,20 +2,14 @@
     <div>
         <h1>회원 가입</h1>
         <div>
-            <form @submit.prevent="signUp">
+            <form @submit.prevent="signIn">
                 <div>
                     <input v-model="id" autofocus placeholder="아이디" required>
                 </div>
                 <div>
                     <input type="password" v-model="password" placeholder="패스워드" required>
                 </div>
-                <div>
-                    <select v-model="type">
-                        <option value="A">정보 소요자</option>
-                        <option value="B">정보 공급자</option>
-                    </select>
-                </div>
-                <button type="submit">회원가입</button>
+                <button type="submit">로그인</button>
             </form>
         </div>
     </div>
@@ -28,12 +22,10 @@
     export default class SignUp extends Vue {
         id: string = '';
         password: string = '';
-        type: string = 'A';
 
-        async signUp() {
+        async signIn() {
             try {
-                await this.$store.dispatch('signUp', {id: this.id, password: this.password, type: this.type});
-                alert('가입 완료');
+                await this.$store.dispatch('signIn', {id: this.id, password: this.password});
                 this.$router.push('/');
             } catch (e) {
                 alert(e);
