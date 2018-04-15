@@ -42,6 +42,7 @@ export class SignInRouter {
 
             const result = {
                 token: signJWT({id, type: memberInfo.type}),
+                type: memberInfo.type,
                 id
             };
 
