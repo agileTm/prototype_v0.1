@@ -1,8 +1,10 @@
 <template>
     <div class="home">
         <h1>Home</h1>
-        <div v-if="signInfo">
-            {{signInfo}}
+        <div v-if="signInfo.id">
+            {{signInfo.id}}
+            /
+            <router-link to="/question" v-if="signInfo.type === 'A'">질문하기</router-link>
             /
             <a @click="signOut">로그아웃</a>
         </div>

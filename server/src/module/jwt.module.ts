@@ -1,6 +1,5 @@
 import { sign, verify } from 'jsonwebtoken';
 import { Config } from '../config/config';
-import { Request, Response } from 'express';
 import { ErrorModule } from './error.module';
 
 
@@ -19,7 +18,7 @@ export const verifyJWT = (jwt: string) => {
     });
 };
 
-export const checkJWT = (req: any, res: any, next: Function) => {
+export const checkJWT = (type?: 'A' | 'B') => (req: any, res: any, next: Function) => {
     let jwt = null;
     if (req.headers && req.headers.authorization) {
         const parts = req.headers.authorization.split(' ');
@@ -40,11 +39,15 @@ export const checkJWT = (req: any, res: any, next: Function) => {
     }
 
     if (jwt) {
-        verifyJWT(jwt).then(data => {
-            req.user = data;
-            next();
+        verifyJWT(jwt).then((data: any) => {
+            if (type && type !== data.type) {
+                next(ErrorModule.getError(401, 'wrong_type'));
+            } else {
+                req.user = data;
+                next();
+            }
         }).catch(e => {
-            next(ErrorModule.getError(401, 'invalid_token'));
+            next(ErrorModule.getError(401, e.message));
         });
     }
 };

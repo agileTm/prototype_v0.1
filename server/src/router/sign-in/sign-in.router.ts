@@ -41,14 +41,15 @@ export class SignInRouter {
             }
 
             const result = {
-                token: signJWT({id}),
+                token: signJWT({id, type: memberInfo.type}),
+                type: memberInfo.type,
                 id
             };
 
             res.send(result);
         }));
 
-        this.router.post('/check', checkJWT, wrap(async (req: any, res: any) => {
+        this.router.post('/check', checkJWT(), wrap(async (req: any, res: any) => {
             res.send(req.user);
         }));
     }
