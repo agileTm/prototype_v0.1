@@ -16,7 +16,7 @@ server.ready.then(() => {
     });
 });*/
 
-const runner = spawn('./node_modules/.bin/mocha', ['-r', 'ts-node/register', './**/**in.spec.ts'], {stdio: 'inherit'});
+const runner = spawn('./node_modules/.bin/mocha', ['-r', 'ts-node/register', './**/**trade.spec.ts'], {stdio: 'inherit'});
 
 runner.on('exit', function (code) {
     process.exit(code);
