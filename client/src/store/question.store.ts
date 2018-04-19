@@ -1,13 +1,23 @@
-import { post } from '@/modules/http.module';
+import { get, post } from '@/modules/http.module';
 
 export const questionStore = {
     state: {
         questions: []
     },
     actions: {
-        questionSave: async ({commit}: any, payload: { title: string, content: string}) =>
-            await post('/infotrade/question', payload)
+        questionAdd: async ({commit}: any, payload: { title: string, content: string}) =>
+            await post('/infotrade/question', payload),
+        questionGet: async({commit}: any) => {
+            const result = await get('/infotrade/question');
+            commit('questionAdd', result);
+        }
     },
-    getters: {},
-    mutations: {}
+    getters: {
+        questions: (state: any) => state.questions
+    },
+    mutations: {
+        questionAdd: (state: any, data: any) => {
+            state.questions = data;
+        }
+    }
 };

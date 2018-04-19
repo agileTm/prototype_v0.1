@@ -20,5 +20,19 @@ export const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
     await store.dispatch('signCheck');
-    next();
+
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!store.getters.checkSign) {
+            next({
+                path: '/signin',
+                query: {
+                    redirect: to.fullPath,
+                }
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
 });

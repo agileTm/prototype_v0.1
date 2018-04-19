@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>회원 가입</h1>
+        <h1>로그인</h1>
         <div>
             <form @submit.prevent="signIn">
                 <div>
@@ -26,7 +26,12 @@
         async signIn() {
             try {
                 await this.$store.dispatch('signIn', {id: this.id, password: this.password});
-                this.$router.push('/');
+                const redirect = this.$route.query.redirect;
+                if(redirect) {
+                    this.$router.push(redirect);
+                }else {
+                    this.$router.push('/');
+                }
             } catch (e) {
                 alert(e);
             }

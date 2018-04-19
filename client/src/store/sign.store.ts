@@ -43,7 +43,8 @@ export const signStore = {
                 id: state.id,
                 type: state.type
             }
-        }
+        },
+        checkSign: (state: any) => !!state.id
     },
     mutations: {
         saveSignInfo: (state: any, data: any) => {

@@ -4,7 +4,7 @@
         <div v-if="signInfo.id">
             {{signInfo.id}}
             <span v-if="signInfo.type === 'A'">/</span>
-            <router-link to="/question" v-if="signInfo.type === 'A'">질문하기</router-link>
+            <router-link to="/question" v-if="signInfo.type === 'A'">질문보기</router-link>
             /
             <a @click="signOut">로그아웃</a>
         </div>
