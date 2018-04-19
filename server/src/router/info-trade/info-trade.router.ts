@@ -9,7 +9,7 @@ import { ErrorModule } from '../../module/error.module';
 
 export class InfoTradeRouter {
     router: Router;
-    private _r: any;
+    _r: any;
 
     /**
      * 라우터 선언
@@ -35,11 +35,27 @@ export class InfoTradeRouter {
                 type: user.type,
                 title: params.title,
                 content: params.content,
-                state: 'ing',
+                state: 'looking',
                 date: new Date().getTime()
             });
 
             res.send(result.generated_keys[0]);
+        }));
+
+        this.router.get('/question', checkJWT(), wrap(async (req: any, res: any) => {
+            const user = req.user;
+
+            let query: any = {};
+
+            if(user.type === 'A') {
+                query.userId = user.id;
+            } else {
+                query.state = 'looking';
+            }
+
+            const result: any = await this._r.table(Config.TABLE_TRADE).filter(query);
+
+            res.send(result);
         }));
 
         this.router.delete('/question/:id', checkJWT('A'), wrap(async (req: any, res: any) => {

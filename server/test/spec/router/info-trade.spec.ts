@@ -8,10 +8,15 @@ const http = chai.request('http://localhost:3000/api/infotrade');
 const expect = chai.expect;
 
 let jwt: any = null;
+let jwt2: any = null;
 let id: string = '';
+
+let user1 = {id: 'testtest', type: 'A'};
+let user2 = {id: 'test2', type: 'B'};
 describe('info-trade', () => {
     before(async () => {
-        jwt = signJWT({id: 'testtest', type: 'A'});
+        jwt = signJWT(user1);
+        jwt2 = signJWT(user2);
     });
 
     it('question', done => {
@@ -32,6 +37,33 @@ describe('info-trade', () => {
     it('question delete', done => {
         http
             .del('/question/' + id)
+            .set('Authorization', `Bearer ${jwt}`)
+            .then(res => {
+                expect(res.status).to.be.equal(200);
+                done();
+            }).catch(e => done(e));
+    });
+
+    it('question get typeA', done => {
+        http
+            .get('/question')
+            .set('Authorization', `Bearer ${jwt}`)
+            .then(res => {
+                expect(res.status).to.be.equal(200);
+                const results: any[] = res.body;
+                const userId = user1.id;
+                for(const result of results) {
+                    if(result.userId !== userId) {
+                        throw new Error(`error not auth ${result.userId} !== ${userId}`);
+                    }
+                }
+                done();
+            }).catch(e => done(e));
+    });
+
+    it('question get typeB', done => {
+        http
+            .get('/question')
             .set('Authorization', `Bearer ${jwt}`)
             .then(res => {
                 expect(res.status).to.be.equal(200);
